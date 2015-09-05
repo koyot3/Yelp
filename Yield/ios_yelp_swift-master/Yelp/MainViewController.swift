@@ -27,8 +27,7 @@ class MainViewController: UITableViewController, UIScrollViewDelegate, UISearchB
         
         // Delegate Datasource
         searchBar.delegate = self
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 190
+        
         
     }
 
