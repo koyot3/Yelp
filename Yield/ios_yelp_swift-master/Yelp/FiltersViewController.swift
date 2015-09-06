@@ -1,40 +1,24 @@
 //
-//  MainViewController.swift
+//  FiltersViewController.swift
 //  Yelp
 //
-//  Created by admin on 9/5/15.
+//  Created by admin on 9/6/15.
 //  Copyright (c) 2015 Timothy Lee. All rights reserved.
 //
 
 import UIKit
 
-class MainViewController: UITableViewController, UIScrollViewDelegate, UISearchBarDelegate {
+class FiltersViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource {
 
-    var businesses: [Business]!
-    var result: [Business]!
-    var searchBar:UISearchBar = UISearchBar(frame: CGRectMake(0, 0, 200, 20))
-    
-    var categories: [Category]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        searchBar.placeholder = "Find your place"
-        self.navigationItem.titleView = searchBar
-        
-        categories = Category.getCategories()
-        
-        Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
-            self.businesses = businesses
-            self.tableView.reloadData()
-        }
-        
-        // Delegate Datasource
-        searchBar.delegate = self
-        
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 120
-        
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,23 +37,19 @@ class MainViewController: UITableViewController, UIScrollViewDelegate, UISearchB
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        if let businesses = self.businesses {
-            return businesses.count
-        }
         return 0
     }
 
+    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("VenueCell", forIndexPath: indexPath) as! VenueCell
-        cell.initWithBusiness(self.businesses[indexPath.row])
+        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
+
+        // Configure the cell...
+
         return cell
     }
+    */
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.endEditing(true)
-    }
-    
-    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -115,12 +95,4 @@ class MainViewController: UITableViewController, UIScrollViewDelegate, UISearchB
     }
     */
 
-    override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-        searchBar.endEditing(true)
-        searchBar.resignFirstResponder()
-    }
-    
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        println(searchText)
-    }
 }
