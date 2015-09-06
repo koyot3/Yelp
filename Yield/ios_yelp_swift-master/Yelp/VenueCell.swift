@@ -20,6 +20,17 @@ class VenueCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.venueImage.layer.cornerRadius = 3
+        self.venueImage.clipsToBounds = true
+        
+        self.name.preferredMaxLayoutWidth = self.name.frame.size.width
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        self.name.preferredMaxLayoutWidth = self.name.frame.size.width
+
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
