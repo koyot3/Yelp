@@ -104,9 +104,10 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="bOs-Ey-lhS">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="cGw-4d-sQP"/>
                         <barButtonItem key="leftBarButtonItem" title="Filter" id="ww2-r0-e4f">
                             <connections>
-                                <segue destination="TLW-5O-zcT" kind="show" id="Hdp-OS-Jxg"/>
+                                <segue destination="TLW-5O-zcT" kind="presentation" id="905-x6-pfa"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

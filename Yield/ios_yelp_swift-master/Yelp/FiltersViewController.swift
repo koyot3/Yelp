@@ -123,7 +123,7 @@ class FiltersViewController: UITableViewController, UITableViewDelegate, UITable
     }
 
     @IBAction func searchByFilters(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
+        self.dismissViewControllerAnimated(true, completion: {})
         var filters = [String:AnyObject]()
         
         var selectedCategories = [String]()
