@@ -8,21 +8,17 @@
 
 import UIKit
 
-class MainViewController: UITableViewController, UIScrollViewDelegate, UISearchBarDelegate {
+class MainViewController: UITableViewController, UIScrollViewDelegate, UISearchBarDelegate, FiltersViewControllerDelegate {
 
     var businesses: [Business]!
     var result: [Business]!
     var searchBar:UISearchBar = UISearchBar(frame: CGRectMake(0, 0, 200, 20))
-    
-    var categories: [Category]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         searchBar.placeholder = "Find your place"
         self.navigationItem.titleView = searchBar
-        
-        categories = Category.getCategories()
         
         Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
             self.businesses = businesses
@@ -105,15 +101,35 @@ class MainViewController: UITableViewController, UIScrollViewDelegate, UISearchB
     }
     */
 
-    /*
+    
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        let navController = segue.destinationViewController as! UINavigationController
+        let filtersController = navController.topViewController as! FiltersViewController
+        filtersController.delegate = self
+        /*
+        detailViewController.item = movie
+        JTProgressHUD.show()
+
+        let detailViewController = segue.destinationViewController as! FiltersViewController
+        detailViewController.categories = self.categories
+        */
     }
-    */
+
+    func filtersView(filterView: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
+        
+        var filter = filters["categories"] as? [String]
+        
+        Business.searchWithTerm("Restaurants", sort: nil, categories: filter, deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
+            self.businesses = businesses
+            self.tableView.reloadData()
+        }
+        
+    }
 
     override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         searchBar.endEditing(true)
